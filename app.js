@@ -2,6 +2,8 @@ const express = require('express');
 const fruitsApp = express();
 const fruitsRoutes = require("./routes/fruitsRoutes")
 const nutritionRoutes = require("./routes/nutritionRoutes")
+const cors = require('cors');
+fruitsApp.use(cors());
 
 fruitsApp.get('/', (req, res) => {
    res.send('Hello Fruity!')
