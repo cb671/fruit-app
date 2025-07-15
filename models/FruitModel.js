@@ -51,14 +51,40 @@ class FruitsModel {
     }
 
     static put(name, data) {
-        const fruit = fruitsArray.find((fruit) => fruit.name.toLowerCase() == name.toLowerCase());
-        if (fruit) {
-            Object.assign(fruit, data);
-            return new FruitsModel(fruit);
-        } else {
-            throw "Fruit not found.";
-        }
+    const fruit = fruitsArray.find(
+        (fruit) => fruit.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (fruit) {
+        const defaultFruit = {
+            genus: "",
+            name: fruit.name, 
+            id: fruit.id,     
+            family: "",
+            order: "",
+            nutritions: {
+                carbohydrates: 0,
+                protein: 0,
+                fat: 0,
+                calories: 0,
+                sugar: 0
+            }
+        };
+
+        const updatedFruit = Object.assign(defaultFruit, data, {
+            id: fruit.id,
+            name: fruit.name
+        });
+
+        
+        fruitsArray[fruitsArray.indexOf(fruit)] = updatedFruit;
+
+        return new FruitsModel(updatedFruit);
+    } else {
+        throw "Fruit not found.";
     }
+}
+
 
     static patch(name, data) {
         const fruit = fruitsArray.find((fruit) => fruit.name.toLowerCase() == name.toLowerCase());
