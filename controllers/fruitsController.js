@@ -29,4 +29,32 @@ const createFruit = async (req, res) => {
     }
 };
 
-module.exports = {showAllFruits, showFruit, createFruit}
+const deleteFruit = async (req, res) => {
+    try {
+        const deletedFruit = await FruitModel.delete(req.params.name);
+        res.status(200).send(deletedFruit);
+    } catch (err) {
+        res.status(404).send({ error: err });
+    }
+}
+
+const putFruit = async (req, res) => {
+    try {
+        const updatedFruit = await FruitModel.put(req.params.name, req.body);
+        res.status(200).send(updatedFruit);
+    } catch (err) {
+        res.status(404).send({ error: err });
+    }
+};
+
+const patchFruit = async (req, res) => {
+    try {
+        const updatedFruit = await FruitModel.patch(req.params.name, req.body);
+        res.status(200).send(updatedFruit);
+    } catch (err) {
+        res.status(404).send({ error: err });
+    }
+};
+
+
+module.exports = {showAllFruits, showFruit, createFruit, deleteFruit, putFruit, patchFruit}

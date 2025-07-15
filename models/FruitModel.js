@@ -25,16 +25,6 @@ class FruitsModel {
         }
     }
 
-    static create(data) {
-        const newFruit = data;
-        console.log(newFruit)
-
-        newFruit["id"] = fruitsArray.length + 1;
-
-        fruitsArray.push(newFruit);
-
-        return new FruitsModel(newFruit)
-    };
 
      static create(data) {
         const newFruit = data;
@@ -49,6 +39,36 @@ class FruitsModel {
               return new FruitsModel(newFruit)
           }
     };
+
+    static delete(name) {
+        const fruit = fruitsArray.find((fruit) => fruit.name.toLowerCase() == name.toLowerCase());
+        if (fruit) {
+            fruitsArray.splice(fruitsArray.indexOf(fruit), 1);
+            return new FruitsModel(fruit);
+        } else {
+            throw "Fruit not found.";
+        }
+    }
+
+    static put(name, data) {
+        const fruit = fruitsArray.find((fruit) => fruit.name.toLowerCase() == name.toLowerCase());
+        if (fruit) {
+            Object.assign(fruit, data);
+            return new FruitsModel(fruit);
+        } else {
+            throw "Fruit not found.";
+        }
+    }
+
+    static patch(name, data) {
+        const fruit = fruitsArray.find((fruit) => fruit.name.toLowerCase() == name.toLowerCase());
+        if (fruit) {
+            Object.assign(fruit, data);
+            return new FruitsModel(fruit);
+        } else {
+            throw "Fruit not found.";
+        }
+    }
 }
 
 module.exports = FruitsModel;
